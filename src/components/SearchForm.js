@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import CharacterList from "./CharacterList";
 
-export default function SearchForm() {
+export default function SearchForm(props) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState(props.list);
 
   useEffect(() => {
-    const results = CharacterList.filter(character =>
-      character.toLowerCase().includes(searchTerm.toLowerCase())
+    const results = props.list.filter(character =>
+      character.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setSearchResults(results);
   }, [searchTerm]);
+
+  useEffect(() => {
+    setSearchResults(props.list);
+  }, [props.list]);
+
   const handleChange = e => {
     setSearchTerm(e.target.value);
   };
@@ -32,7 +37,7 @@ export default function SearchForm() {
         <div className="character-list">
           <ul>
             {searchResults.map(character => (
-              <li key={character}>{character}</li>
+              <li key={character.id}>{character.name}</li>
             ))}
           </ul>
         </div>

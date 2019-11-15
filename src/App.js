@@ -37,15 +37,15 @@ export default function App() {
         <Header />
         <Route
           exact
+          path="/SearchForms"
+          render={props => <SearchForm {...props} list={searchResults} />}
+        />
+        <Route
+          exact
           path="/"
           render={props => <CharacterList {...props} list={searchResults} />}
         />
         <Route path="/char/:id" component={CharacterCard} />
-        <Route
-          exact
-          path="/"
-          render={props => <SearchForm {...props} list={searchResults} />}
-        />
       </main>
     </WrapperDiv>
   );
